@@ -14,7 +14,7 @@ RUN curl -fsSL "${FILE_METADATA_URL:?}" > "${BISERVER_HOME:?}"/"${SOLUTIONS_DIRN
 	&& cd "${BISERVER_HOME:?}"/"${SOLUTIONS_DIRNAME:?}"/system/ && unzip -qo ./file-metadata.zip && rm -f ./file-metadata.zip
 
 # Install global-user-settings
-ARG GLOBAL_USER_SETTINGS_VERSION=1.3.0
+ARG GLOBAL_USER_SETTINGS_VERSION=1.4.0
 ARG GLOBAL_USER_SETTINGS_URL="${LINCEBI_MAVEN_URL}/com/stratebi/lincebi/global-user-settings/${GLOBAL_USER_SETTINGS_VERSION}/global-user-settings-${GLOBAL_USER_SETTINGS_VERSION}.zip"
 RUN curl -fsSL "${GLOBAL_USER_SETTINGS_URL:?}" > "${BISERVER_HOME:?}"/"${SOLUTIONS_DIRNAME:?}"/system/global-user-settings.zip \
 	&& cd "${BISERVER_HOME:?}"/"${SOLUTIONS_DIRNAME:?}"/system/ && unzip -qo ./global-user-settings.zip && rm -f ./global-user-settings.zip
