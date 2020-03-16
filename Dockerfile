@@ -3,7 +3,7 @@ FROM repo.stratebi.com/lincebi/biserver:8.2.0.0-342
 ARG LINCEBI_MAVEN_URL="https://repo.stratebi.com/repository/lincebi-mvn"
 
 # Install LinceBI frontend
-ARG LINCEBI_FRONTEND_VERSION=1.4.0
+ARG LINCEBI_FRONTEND_VERSION=1.4.1
 ARG LINCEBI_FRONTEND_URL="${LINCEBI_MAVEN_URL}/com/stratebi/lincebi/lincebi-biserver-frontend/${LINCEBI_FRONTEND_VERSION}/lincebi-biserver-frontend-${LINCEBI_FRONTEND_VERSION}.tgz"
 RUN curl -fsSL "${LINCEBI_FRONTEND_URL:?}" | tar -xzC "${BISERVER_HOME:?}"
 
