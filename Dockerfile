@@ -27,11 +27,11 @@ RUN curl -fsSL "${STSEARCH_URL:?}" > "${BISERVER_HOME:?}"/"${SOLUTIONS_DIRNAME:?
 
 # Install language packs
 ARG LANGUAGEPACKS_LIST=ca,de,es,fr,it,pt_BR
-ARG LANGUAGEPACKS_VERSION=8.2-18.12.06
-ARG LANGUAGEPACKS_URL_BASE="https://github.com/webdetails/pentahoLanguagePacks/releases/download/${LANGUAGEPACKS_VERSION}"
+ARG LANGUAGEPACKS_VERSION=9.0-20.03.16
+ARG LANGUAGEPACKS_URL_BASE="https://repo.stratebi.com/repository/lincebi-raw/pentaho-language-packs"
 RUN IFS=,; for lang in ${LANGUAGEPACKS_LIST-}; do \
-		url="${LANGUAGEPACKS_URL_BASE:?}"/languagepack_"${lang:?}"-"${LANGUAGEPACKS_VERSION}".zip; \
-		pkg="${BISERVER_HOME:?}"/"${SOLUTIONS_DIRNAME:?}"/system/languagepack_"${lang:?}"-"${LANGUAGEPACKS_VERSION}".zip; \
+		url="${LANGUAGEPACKS_URL_BASE:?}"/languagePack_"${lang:?}"-"${LANGUAGEPACKS_VERSION}".zip; \
+		pkg="${BISERVER_HOME:?}"/"${SOLUTIONS_DIRNAME:?}"/system/languagePack_"${lang:?}"-"${LANGUAGEPACKS_VERSION}".zip; \
 		dst="${BISERVER_HOME:?}"/"${SOLUTIONS_DIRNAME:?}"/system/; \
 		dir="${dst:?}"/languagePack_"${lang:?}"; \
 		kjb="${dir:?}"/endpoints/kettle/admin/installpack.kjb; \
