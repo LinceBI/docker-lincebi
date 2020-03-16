@@ -8,7 +8,7 @@ ARG LINCEBI_FRONTEND_URL="${LINCEBI_MAVEN_URL}/com/stratebi/lincebi/lincebi-bise
 RUN curl -fsSL "${LINCEBI_FRONTEND_URL:?}" | tar -xzC "${BISERVER_HOME:?}"
 
 # Install file-metadata
-ARG FILE_METADATA_VERSION=2.7.1
+ARG FILE_METADATA_VERSION=2.8.0
 ARG FILE_METADATA_URL="${LINCEBI_MAVEN_URL}/com/stratebi/lincebi/file-metadata/${FILE_METADATA_VERSION}/file-metadata-${FILE_METADATA_VERSION}.zip"
 RUN curl -fsSL "${FILE_METADATA_URL:?}" > "${BISERVER_HOME:?}"/"${SOLUTIONS_DIRNAME:?}"/system/file-metadata.zip \
 	&& cd "${BISERVER_HOME:?}"/"${SOLUTIONS_DIRNAME:?}"/system/ && unzip -qo ./file-metadata.zip && rm -f ./file-metadata.zip
