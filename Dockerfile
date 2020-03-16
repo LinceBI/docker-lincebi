@@ -20,7 +20,7 @@ RUN curl -fsSL "${GLOBAL_USER_SETTINGS_URL:?}" > "${BISERVER_HOME:?}"/"${SOLUTIO
 	&& cd "${BISERVER_HOME:?}"/"${SOLUTIONS_DIRNAME:?}"/system/ && unzip -qo ./global-user-settings.zip && rm -f ./global-user-settings.zip
 
 # Install STSearch
-ARG STSEARCH_VERSION=1.4.0
+ARG STSEARCH_VERSION=1.4.1
 ARG STSEARCH_URL="${LINCEBI_MAVEN_URL}/com/stratebi/lincebi/stsearch/${STSEARCH_VERSION}/stsearch-${STSEARCH_VERSION}.zip"
 RUN curl -fsSL "${STSEARCH_URL:?}" > "${BISERVER_HOME:?}"/"${SOLUTIONS_DIRNAME:?}"/system/stsearch.zip \
 	&& cd "${BISERVER_HOME:?}"/"${SOLUTIONS_DIRNAME:?}"/system/ && unzip -qo ./stsearch.zip && rm -f ./stsearch.zip
