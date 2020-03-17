@@ -32,7 +32,7 @@ RUN cd "${BISERVER_HOME:?}"/"${SOLUTIONS_DIRNAME:?}"/system/ \
 	&& rm -f ./stsearch.zip
 
 # Install language packs
-ARG LANGUAGEPACKS_LIST=ca,de,es,fr,it,pt_BR
+ARG LANGUAGEPACKS_LIST=es,ca
 ARG LANGUAGEPACKS_VERSION=9.0-20.03.16
 ARG LANGUAGEPACKS_URL_BASE="https://repo.stratebi.com/repository/lincebi-raw/pentaho-language-packs"
 RUN IFS=,; for lang in ${LANGUAGEPACKS_LIST-}; do \
