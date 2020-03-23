@@ -50,3 +50,13 @@ RUN IFS=,; for lang in ${LANGUAGEPACKS_LIST-}; do \
 # Copy Pentaho BI Server config
 COPY --chown=biserver:biserver ./config/biserver/pentaho-solutions/ "${BISERVER_HOME}"/"${SOLUTIONS_DIRNAME}"/
 COPY --chown=root:root ./config/biserver.init.d/ "${BISERVER_INITD}"/
+
+# Set sane permissions until solved upstream:
+# https://gitlab.com/gitlab-org/gitlab-runner/issues/1736
+RUN find /usr/share/biserver/bin/ -not -perm 0755 -exec chmod 0755 '{}' '+' \
+	&& find /usr/share/biserver/service/ -not -perm 0755 -exec chmod 0755 '{}' '+' \
+	&& find /home/biserver/ -type d -not -perm 0755 -exec chmod 0755 '{}' '+' \
+	&& find /home/biserver/ -type f -not -perm 0644 -exec chmod 0644 '{}' '+' \
+	&& find "${CATALINA_HOME:?}" "${CATALINA_BASE:?}" "${BISERVER_HOME:?}" -type d -not -perm 0755 -exec chmod 0755 '{}' '+' \
+	&& find "${CATALINA_HOME:?}" "${CATALINA_BASE:?}" "${BISERVER_HOME:?}" -type f -not -perm 0644 -exec chmod 0644 '{}' '+' \
+	&& find "${CATALINA_HOME:?}" "${CATALINA_BASE:?}" "${BISERVER_HOME:?}" -type f -regex '.*\.sh\(\.erb\)?$' -exec chmod 0755 '{}' '+'
