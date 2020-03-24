@@ -1,5 +1,6 @@
 FROM repo.stratebi.com/lincebi/biserver:9.0.0.0-423
 
+ARG LINCEBI_RAW_URL="https://repo.stratebi.com/repository/lincebi-raw"
 ARG LINCEBI_MAVEN_URL="https://repo.stratebi.com/repository/lincebi-mvn"
 
 # Install LinceBI frontend
@@ -34,7 +35,7 @@ RUN cd "${BISERVER_HOME:?}"/"${SOLUTIONS_DIRNAME:?}"/system/ \
 # Install language packs
 ARG LANGUAGEPACKS_LIST=es,ca
 ARG LANGUAGEPACKS_VERSION=9.0-20.03.16
-ARG LANGUAGEPACKS_URL_BASE="https://repo.stratebi.com/repository/lincebi-raw/pentaho-language-packs"
+ARG LANGUAGEPACKS_URL_BASE="${LINCEBI_RAW_URL}/pentaho-language-packs"
 RUN IFS=,; for lang in ${LANGUAGEPACKS_LIST-}; do \
 		url="${LANGUAGEPACKS_URL_BASE:?}"/languagePack_"${lang:?}"-"${LANGUAGEPACKS_VERSION}".zip; \
 		pkg="${BISERVER_HOME:?}"/"${SOLUTIONS_DIRNAME:?}"/system/languagePack_"${lang:?}"-"${LANGUAGEPACKS_VERSION}".zip; \
