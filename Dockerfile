@@ -4,7 +4,7 @@ ARG LINCEBI_RAW_URL="https://repo.stratebi.com/repository/lincebi-raw"
 ARG LINCEBI_MAVEN_URL="https://repo.stratebi.com/repository/lincebi-mvn"
 
 # Install LinceBI frontend
-ARG LINCEBI_FRONTEND_VERSION=1.4.4
+ARG LINCEBI_FRONTEND_VERSION=1.4.5
 ARG LINCEBI_FRONTEND_URL="${LINCEBI_MAVEN_URL}/com/stratebi/lincebi/lincebi-biserver-frontend/${LINCEBI_FRONTEND_VERSION}/lincebi-biserver-frontend-${LINCEBI_FRONTEND_VERSION}.tgz"
 RUN curl -fsSL "${LINCEBI_FRONTEND_URL:?}" | tar -xzC "${BISERVER_HOME:?}" \
 	&& /usr/share/biserver/bin/update-permissions.sh >/dev/null
@@ -28,7 +28,7 @@ RUN cd "${BISERVER_HOME:?}"/"${SOLUTIONS_DIRNAME:?}"/system/ \
 	&& /usr/share/biserver/bin/update-permissions.sh >/dev/null
 
 # Install STSearch
-ARG STSEARCH_VERSION=1.4.4
+ARG STSEARCH_VERSION=1.4.5
 ARG STSEARCH_URL="${LINCEBI_MAVEN_URL}/com/stratebi/lincebi/stsearch/${STSEARCH_VERSION}/stsearch-${STSEARCH_VERSION}.zip"
 RUN cd "${BISERVER_HOME:?}"/"${SOLUTIONS_DIRNAME:?}"/system/ \
 	&& curl -fsSL "${STSEARCH_URL:?}" > ./stsearch.zip \
