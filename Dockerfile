@@ -28,7 +28,7 @@ RUN cd "${BISERVER_HOME:?}"/"${SOLUTIONS_DIRNAME:?}"/system/ \
 	&& /usr/share/biserver/bin/update-permissions.sh >/dev/null
 
 # Install STSearch
-ARG STSEARCH_VERSION=1.4.4
+ARG STSEARCH_VERSION=1.4.5
 ARG STSEARCH_URL="${LINCEBI_MAVEN_URL}/com/stratebi/lincebi/stsearch/${STSEARCH_VERSION}/stsearch-${STSEARCH_VERSION}.zip"
 RUN cd "${BISERVER_HOME:?}"/"${SOLUTIONS_DIRNAME:?}"/system/ \
 	&& curl -fsSL "${STSEARCH_URL:?}" > ./stsearch.zip \
