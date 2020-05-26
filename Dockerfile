@@ -3,37 +3,28 @@ FROM repo.stratebi.com/lincebi/biserver:8.2.0.0-342
 ARG LINCEBI_RAW_URL="https://repo.stratebi.com/repository/lincebi-raw"
 ARG LINCEBI_MAVEN_URL="https://repo.stratebi.com/repository/lincebi-mvn"
 
-# Install LinceBI frontend
-ARG LINCEBI_FRONTEND_VERSION=1.5.0
+# Add LinceBI frontend layer
+ARG LINCEBI_FRONTEND_VERSION=1.5.1
 ARG LINCEBI_FRONTEND_URL="${LINCEBI_MAVEN_URL}/com/stratebi/lincebi/lincebi-biserver-frontend/${LINCEBI_FRONTEND_VERSION}/lincebi-biserver-frontend-${LINCEBI_FRONTEND_VERSION}.tgz"
-RUN curl -fsSL "${LINCEBI_FRONTEND_URL:?}" | tar -xzC "${BISERVER_HOME:?}" \
+RUN curl -fsSL "${LINCEBI_FRONTEND_URL:?}" -o "${BISERVER_PRIV_INITD}"/10_lincebi-biserver-frontend.tgz \
 	&& /usr/share/biserver/bin/update-permissions.sh >/dev/null
 
-# Install file-metadata
+# Add file-metadata layer
 ARG FILE_METADATA_VERSION=2.8.0
 ARG FILE_METADATA_URL="${LINCEBI_MAVEN_URL}/com/stratebi/lincebi/file-metadata/${FILE_METADATA_VERSION}/file-metadata-${FILE_METADATA_VERSION}.zip"
-RUN cd "${BISERVER_HOME:?}"/"${SOLUTIONS_DIRNAME:?}"/system/ \
-	&& curl -fsSL "${FILE_METADATA_URL:?}" > ./file-metadata.zip \
-	&& unzip -qo ./file-metadata.zip \
-	&& rm -f ./file-metadata.zip \
+RUN curl -fsSL "${FILE_METADATA_URL:?}" -o "${BISERVER_PRIV_INITD}"/20_file-metadata.zip \
 	&& /usr/share/biserver/bin/update-permissions.sh >/dev/null
 
-# Install global-user-settings
+# Add global-user-settings layer
 ARG GLOBAL_USER_SETTINGS_VERSION=1.4.0
 ARG GLOBAL_USER_SETTINGS_URL="${LINCEBI_MAVEN_URL}/com/stratebi/lincebi/global-user-settings/${GLOBAL_USER_SETTINGS_VERSION}/global-user-settings-${GLOBAL_USER_SETTINGS_VERSION}.zip"
-RUN cd "${BISERVER_HOME:?}"/"${SOLUTIONS_DIRNAME:?}"/system/ \
-	&& curl -fsSL "${GLOBAL_USER_SETTINGS_URL:?}" > ./global-user-settings.zip \
-	&& unzip -qo ./global-user-settings.zip \
-	&& rm -f ./global-user-settings.zip \
+RUN curl -fsSL "${GLOBAL_USER_SETTINGS_URL:?}" -o "${BISERVER_PRIV_INITD}"/20_global-user-settings.zip \
 	&& /usr/share/biserver/bin/update-permissions.sh >/dev/null
 
-# Install STSearch
+# Add STSearch layer
 ARG STSEARCH_VERSION=1.4.6
 ARG STSEARCH_URL="${LINCEBI_MAVEN_URL}/com/stratebi/lincebi/stsearch/${STSEARCH_VERSION}/stsearch-${STSEARCH_VERSION}.zip"
-RUN cd "${BISERVER_HOME:?}"/"${SOLUTIONS_DIRNAME:?}"/system/ \
-	&& curl -fsSL "${STSEARCH_URL:?}" > ./stsearch.zip \
-	&& unzip -qo ./stsearch.zip \
-	&& rm -f ./stsearch.zip \
+RUN curl -fsSL "${STSEARCH_URL:?}" > "${BISERVER_PRIV_INITD}"/20_stsearch.zip \
 	&& /usr/share/biserver/bin/update-permissions.sh >/dev/null
 
 # Install language packs
@@ -54,7 +45,7 @@ RUN IFS=,; for lang in ${LANGUAGEPACKS_LIST-}; do \
 	&& /usr/share/biserver/bin/update-permissions.sh >/dev/null
 
 # Copy Pentaho BI Server config
-COPY --chown=biserver:root ./config/biserver/pentaho-solutions/ "${BISERVER_HOME}"/"${SOLUTIONS_DIRNAME}"/
+COPY --chown=biserver:root ./config/biserver.priv.init.d/ "${BISERVER_PRIV_INITD}"/
 COPY --chown=biserver:root ./config/biserver.init.d/ "${BISERVER_INITD}"/
 
 # Set correct permissions to support arbitrary user ids
