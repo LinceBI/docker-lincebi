@@ -41,4 +41,7 @@ printf -- '%s\n' "Creating \"${CONTAINER_NAME:?}\" container..."
 	--restart on-failure:3 \
 	--log-opt max-size=32m \
 	--publish '8080:8080/tcp' \
+	--user "$(shuf -i100000-200000 -n1)" \
+	--mount type=tmpfs,dst=/var/lib/biserver/data/hsqldb/ \
+	--mount type=tmpfs,dst=/var/lib/biserver/pentaho-solutions/system/jackrabbit/repository/ \
 	"${IMAGE_NAME:?}" "$@"
