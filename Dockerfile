@@ -22,7 +22,7 @@ RUN curl -fsSL "${GLOBAL_USER_SETTINGS_URL:?}" -o "${BISERVER_PRIV_INITD}"/20_gl
 	&& /usr/share/biserver/bin/update-permissions.sh >/dev/null
 
 # Add STSearch layer
-ARG STSEARCH_VERSION=1.4.6
+ARG STSEARCH_VERSION=1.4.8
 ARG STSEARCH_URL="${LINCEBI_MAVEN_URL}/com/stratebi/lincebi/stsearch/${STSEARCH_VERSION}/stsearch-${STSEARCH_VERSION}.zip"
 RUN curl -fsSL "${STSEARCH_URL:?}" > "${BISERVER_PRIV_INITD}"/20_stsearch.zip \
 	&& /usr/share/biserver/bin/update-permissions.sh >/dev/null
