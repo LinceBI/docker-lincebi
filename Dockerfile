@@ -28,7 +28,7 @@ RUN curl -fsSL "${STSEARCH_URL:?}" > "${BISERVER_PRIV_INITD}"/20_stsearch.zip \
 	&& /usr/share/biserver/bin/update-permissions.sh >/dev/null
 
 # Install language packs
-ARG LANGUAGEPACKS_LIST=es,ca
+ARG LANGUAGEPACKS_LIST=es,ca,pt_PT
 ARG LANGUAGEPACKS_VERSION=9.0-20.03.16
 ARG LANGUAGEPACKS_URL_BASE="${LINCEBI_RAW_URL}/pentaho-language-packs"
 RUN IFS=,; for lang in ${LANGUAGEPACKS_LIST-}; do \
