@@ -4,7 +4,7 @@ ARG LINCEBI_RAW_URL="https://repo.stratebi.com/repository/lincebi-raw"
 ARG LINCEBI_MAVEN_URL="https://repo.stratebi.com/repository/lincebi-mvn"
 
 # Add LinceBI frontend layer
-ARG LINCEBI_FRONTEND_VERSION=1.7.2
+ARG LINCEBI_FRONTEND_VERSION=1.7.3
 ARG LINCEBI_FRONTEND_URL="${LINCEBI_MAVEN_URL}/com/stratebi/lincebi/lincebi-biserver-frontend/${LINCEBI_FRONTEND_VERSION}/lincebi-biserver-frontend-${LINCEBI_FRONTEND_VERSION}.tgz"
 RUN curl -Lo "${BISERVER_PRIV_INITD}"/10_lincebi-biserver-frontend.tgz "${LINCEBI_FRONTEND_URL:?}" \
 	&& /usr/share/biserver/bin/update-permissions.sh >/dev/null
@@ -22,7 +22,7 @@ RUN curl -Lo "${BISERVER_PRIV_INITD}"/20_global-user-settings.zip "${GLOBAL_USER
 	&& /usr/share/biserver/bin/update-permissions.sh >/dev/null
 
 # Add STSearch layer
-ARG STSEARCH_VERSION=1.5.1
+ARG STSEARCH_VERSION=1.5.2
 ARG STSEARCH_URL="${LINCEBI_MAVEN_URL}/com/stratebi/lincebi/stsearch/${STSEARCH_VERSION}/stsearch-${STSEARCH_VERSION}.zip"
 RUN curl -Lo "${BISERVER_PRIV_INITD}"/20_stsearch.zip "${STSEARCH_URL:?}" \
 	&& /usr/share/biserver/bin/update-permissions.sh >/dev/null
