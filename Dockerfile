@@ -12,9 +12,9 @@ RUN curl -Lo "${BISERVER_PRIV_INITD:?}"/10_lincebi-biserver-frontend.tgz "${LINC
 	&& chmod 0664 "${BISERVER_PRIV_INITD:?}"/10_lincebi-biserver-frontend.tgz
 
 # Add file-metadata layer
-ARG FILE_METADATA_VERSION="2.8.0"
+ARG FILE_METADATA_VERSION="2.9.0"
 ARG FILE_METADATA_URL="${LINCEBI_MAVEN_URL}/com/stratebi/lincebi/file-metadata/${FILE_METADATA_VERSION}/file-metadata-${FILE_METADATA_VERSION}.zip"
-ARG FILE_METADATA_CHECKSUM="df8de7fbcd5762e7afca11f5c8ecebbd0eb0261ab01f00d1ba8c0edefd694671"
+ARG FILE_METADATA_CHECKSUM="ab7bf12e64607bb7c2fd6c494d442d5be00374ae81f404365e631c8438ddb819"
 RUN curl -Lo "${BISERVER_PRIV_INITD:?}"/20_file-metadata.zip "${FILE_METADATA_URL:?}" \
 	&& printf '%s  %s' "${FILE_METADATA_CHECKSUM:?}" "${BISERVER_PRIV_INITD:?}"/20_file-metadata.zip | sha256sum -c \
 	&& chmod 0664 "${BISERVER_PRIV_INITD:?}"/20_file-metadata.zip
