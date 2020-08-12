@@ -4,9 +4,9 @@ ARG LINCEBI_RAW_URL="https://repo.stratebi.com/repository/lincebi-raw"
 ARG LINCEBI_MAVEN_URL="https://repo.stratebi.com/repository/lincebi-mvn"
 
 # Add LinceBI frontend layer
-ARG LINCEBI_FRONTEND_VERSION="1.7.3"
+ARG LINCEBI_FRONTEND_VERSION="1.7.4"
 ARG LINCEBI_FRONTEND_URL="${LINCEBI_MAVEN_URL}/com/stratebi/lincebi/lincebi-biserver-frontend/${LINCEBI_FRONTEND_VERSION}/lincebi-biserver-frontend-${LINCEBI_FRONTEND_VERSION}.tgz"
-ARG LINCEBI_FRONTEND_CHECKSUM="ae93c2737f71e22be370fa4f09a97e09fe825465317c1ce79454e9e2f64adefc"
+ARG LINCEBI_FRONTEND_CHECKSUM="bbde2e3855d747130d316210791d2c24a3b0a6151269fb28857423e2b1598621"
 RUN curl -Lo "${BISERVER_PRIV_INITD:?}"/10_lincebi-biserver-frontend.tgz "${LINCEBI_FRONTEND_URL:?}" \
 	&& printf '%s  %s' "${LINCEBI_FRONTEND_CHECKSUM:?}" "${BISERVER_PRIV_INITD:?}"/10_lincebi-biserver-frontend.tgz | sha256sum -c \
 	&& chmod 0664 "${BISERVER_PRIV_INITD:?}"/10_lincebi-biserver-frontend.tgz
@@ -28,9 +28,9 @@ RUN curl -Lo "${BISERVER_PRIV_INITD:?}"/20_global-user-settings.zip "${GLOBAL_US
 	&& chmod 0664 "${BISERVER_PRIV_INITD:?}"/20_global-user-settings.zip
 
 # Add STSearch layer
-ARG STSEARCH_VERSION="1.5.2"
+ARG STSEARCH_VERSION="1.5.3"
 ARG STSEARCH_URL="${LINCEBI_MAVEN_URL}/com/stratebi/lincebi/stsearch/${STSEARCH_VERSION}/stsearch-${STSEARCH_VERSION}.zip"
-ARG STSEARCH_CHECKSUM="255364816d03754ebbaa142bf295ffb069bcd3eb2a4f0e38a7dd81fdf2b011fd"
+ARG STSEARCH_CHECKSUM="e2bd1b7feddd134d92686425fd8216ceb062d6acb152723afd5de3aef4854117"
 RUN curl -Lo "${BISERVER_PRIV_INITD:?}"/20_stsearch.zip "${STSEARCH_URL:?}" \
 	&& printf '%s  %s' "${STSEARCH_CHECKSUM:?}" "${BISERVER_PRIV_INITD:?}"/20_stsearch.zip | sha256sum -c \
 	&& chmod 0664 "${BISERVER_PRIV_INITD:?}"/20_stsearch.zip
