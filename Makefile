@@ -14,6 +14,8 @@ IMAGE_NAMESPACE := lincebi
 IMAGE_PROJECT := lincebi
 IMAGE_NAME := $(IMAGE_REGISTRY)/$(IMAGE_NAMESPACE)/$(IMAGE_PROJECT)
 IMAGE_VERSION := 8.3.0.13-904
+# Extract <MAJOR>.<MINOR> from <MAJOR>.<MINOR>.<MAINTENANCE>.<SERVICEPACK>-<BUILD>
+IMAGE_VERSION_MINOR := $(shell awk -v v='$(IMAGE_VERSION)' 'BEGIN{match(v,/^[0-9]+\.[0-9]+/);print(substr(v,RSTART,RLENGTH))}')
 
 IMAGE_BUILD_OPTS :=
 
@@ -76,6 +78,7 @@ endef
 .PHONY: load-image
 load-image:
 	$(call load_image,$(IMAGE_TARBALL))
+	$(call tag_image,$(IMAGE_NAME):$(IMAGE_VERSION),$(IMAGE_NAME):$(IMAGE_VERSION_MINOR))
 
 ##################################################
 ## "push-*" targets
@@ -88,6 +91,7 @@ endef
 .PHONY: push-image
 push-image:
 	$(call push_image,$(IMAGE_NAME):$(IMAGE_VERSION))
+	$(call push_image,$(IMAGE_NAME):$(IMAGE_VERSION_MINOR))
 
 ##################################################
 ## "clean" target
