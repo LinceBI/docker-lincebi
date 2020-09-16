@@ -39,7 +39,7 @@ RUN curl -Lo "${BISERVER_PRIV_INITD:?}"/20_stsearch.zip "${STSEARCH_URL:?}" \
 ARG LANGUAGEPACK_ES_VERSION="9.0-20.03.16"
 ARG LANGUAGEPACK_ES_URL="${LINCEBI_RAW_URL}/pentaho-language-packs/languagePack_es-${LANGUAGEPACK_ES_VERSION}.zip"
 ARG LANGUAGEPACK_ES_CHECKSUM="28786ee4e2e2b483e006ad4a613b6a9da56e73e6323fc7364e26d199236d6f4e"
-RUN curl -Lo "${BISERVER_PRIV_INITD:?}"/30_language-pack-es.zip -u "${ARTIFACTORY_REPO_AUTH}" "${LANGUAGEPACK_ES_URL:?}" \
+RUN curl -Lo "${BISERVER_PRIV_INITD:?}"/30_language-pack-es.zip "${LANGUAGEPACK_ES_URL:?}" \
 	&& printf '%s  %s' "${LANGUAGEPACK_ES_CHECKSUM:?}" "${BISERVER_PRIV_INITD:?}"/30_language-pack-es.zip | sha256sum -c \
 	&& chmod 0664 "${BISERVER_PRIV_INITD:?}"/30_language-pack-es.zip \
 	# Add installer layer
@@ -52,7 +52,7 @@ RUN curl -Lo "${BISERVER_PRIV_INITD:?}"/30_language-pack-es.zip -u "${ARTIFACTOR
 ARG LANGUAGEPACK_CA_VERSION="9.0-20.03.16"
 ARG LANGUAGEPACK_CA_URL="${LINCEBI_RAW_URL}/pentaho-language-packs/languagePack_ca-${LANGUAGEPACK_CA_VERSION}.zip"
 ARG LANGUAGEPACK_CA_CHECKSUM="f0c7c236c1e3ffecd862c9193546cf27545292df59f95eca2dc6f2f9b5c1b77a"
-RUN curl -Lo "${BISERVER_PRIV_INITD:?}"/30_language-pack-ca.zip -u "${ARTIFACTORY_REPO_AUTH}" "${LANGUAGEPACK_CA_URL:?}" \
+RUN curl -Lo "${BISERVER_PRIV_INITD:?}"/30_language-pack-ca.zip "${LANGUAGEPACK_CA_URL:?}" \
 	&& printf '%s  %s' "${LANGUAGEPACK_CA_CHECKSUM:?}" "${BISERVER_PRIV_INITD:?}"/30_language-pack-ca.zip | sha256sum -c \
 	&& chmod 0664 "${BISERVER_PRIV_INITD:?}"/30_language-pack-ca.zip \
 	# Add installer layer
@@ -65,7 +65,7 @@ RUN curl -Lo "${BISERVER_PRIV_INITD:?}"/30_language-pack-ca.zip -u "${ARTIFACTOR
 ARG LANGUAGEPACK_PT_VERSION="9.0-20.03.16"
 ARG LANGUAGEPACK_PT_URL="${LINCEBI_RAW_URL}/pentaho-language-packs/languagePack_pt_PT-${LANGUAGEPACK_PT_VERSION}.zip"
 ARG LANGUAGEPACK_PT_CHECKSUM="32697afbbfca68b06b4563ac25dca620a6c7812d16e25dfe029ac0c664061e7c"
-RUN curl -Lo "${BISERVER_PRIV_INITD:?}"/30_language-pack-pt.zip -u "${ARTIFACTORY_REPO_AUTH}" "${LANGUAGEPACK_PT_URL:?}" \
+RUN curl -Lo "${BISERVER_PRIV_INITD:?}"/30_language-pack-pt.zip "${LANGUAGEPACK_PT_URL:?}" \
 	&& printf '%s  %s' "${LANGUAGEPACK_PT_CHECKSUM:?}" "${BISERVER_PRIV_INITD:?}"/30_language-pack-pt.zip | sha256sum -c \
 	&& chmod 0664 "${BISERVER_PRIV_INITD:?}"/30_language-pack-pt.zip \
 	# Add installer layer
