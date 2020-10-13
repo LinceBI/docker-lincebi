@@ -20,9 +20,9 @@ RUN curl -Lo "${BISERVER_PRIV_INITD:?}"/20_file-metadata.zip "${FILE_METADATA_UR
 	&& chmod 0664 "${BISERVER_PRIV_INITD:?}"/20_file-metadata.zip
 
 # Add global-user-settings layer
-ARG GLOBAL_USER_SETTINGS_VERSION="1.4.0"
+ARG GLOBAL_USER_SETTINGS_VERSION="1.4.1"
 ARG GLOBAL_USER_SETTINGS_URL="${REPO_MAVEN_LINCEBI_URL}/com/stratebi/lincebi/global-user-settings/${GLOBAL_USER_SETTINGS_VERSION}/global-user-settings-${GLOBAL_USER_SETTINGS_VERSION}.zip"
-ARG GLOBAL_USER_SETTINGS_CHECKSUM="de0e9eb842c6df85ae5fe3230dcd407074409d475f35a0cf8426baedae5ab069"
+ARG GLOBAL_USER_SETTINGS_CHECKSUM="5c327f1e7da6fbead8812d509b337fdefd190071c56e1e27aa2271bcf5a61012"
 RUN curl -Lo "${BISERVER_PRIV_INITD:?}"/20_global-user-settings.zip "${GLOBAL_USER_SETTINGS_URL:?}" \
 	&& printf '%s  %s' "${GLOBAL_USER_SETTINGS_CHECKSUM:?}" "${BISERVER_PRIV_INITD:?}"/20_global-user-settings.zip | sha256sum -c \
 	&& chmod 0664 "${BISERVER_PRIV_INITD:?}"/20_global-user-settings.zip
