@@ -4,9 +4,9 @@ ARG REPO_RAW_LINCEBI_URL="https://repo.stratebi.com/repository/lincebi-raw"
 ARG REPO_MAVEN_LINCEBI_URL="https://repo.stratebi.com/repository/lincebi-mvn"
 
 # Add LinceBI frontend layer
-ARG LINCEBI_FRONTEND_VERSION="1.8.0"
+ARG LINCEBI_FRONTEND_VERSION="1.8.1"
 ARG LINCEBI_FRONTEND_URL="${REPO_MAVEN_LINCEBI_URL}/com/stratebi/lincebi/lincebi-biserver-frontend/${LINCEBI_FRONTEND_VERSION}/lincebi-biserver-frontend-${LINCEBI_FRONTEND_VERSION}.tgz"
-ARG LINCEBI_FRONTEND_CHECKSUM="0f97a8b5b7aa29430f72a21c736cdb20e2414e7bd154baf83c2a3fbfdda1a557"
+ARG LINCEBI_FRONTEND_CHECKSUM="89ab7ce291844ddf5136b18815c61b692ea962c79a5050a8e2a30b7362498339"
 RUN curl -Lo "${BISERVER_PRIV_INITD:?}"/10_lincebi-biserver-frontend.tgz "${LINCEBI_FRONTEND_URL:?}" \
 	&& printf '%s  %s' "${LINCEBI_FRONTEND_CHECKSUM:?}" "${BISERVER_PRIV_INITD:?}"/10_lincebi-biserver-frontend.tgz | sha256sum -c \
 	&& chmod 0664 "${BISERVER_PRIV_INITD:?}"/10_lincebi-biserver-frontend.tgz
