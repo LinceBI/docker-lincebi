@@ -44,4 +44,5 @@ printf -- '%s\n' "Creating \"${CONTAINER_NAME:?}\" container..."
 	--user "$(shuf -i100000-200000 -n1)" \
 	--mount type=tmpfs,dst=/var/lib/biserver/data/hsqldb/ \
 	--mount type=tmpfs,dst=/var/lib/biserver/pentaho-solutions/system/jackrabbit/repository/ \
+	--env DEFAULT_ADMIN_PASSWORD='password' \
 	"${IMAGE_NAME:?}" "$@"
