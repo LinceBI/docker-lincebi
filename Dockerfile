@@ -4,33 +4,33 @@ ARG REPO_RAW_LINCEBI_URL="https://repo.stratebi.com/repository/lincebi-raw"
 ARG REPO_MAVEN_LINCEBI_URL="https://repo.stratebi.com/repository/lincebi-mvn"
 
 # Add LinceBI frontend layer
-ARG LINCEBI_FRONTEND_VERSION="1.8.4"
+ARG LINCEBI_FRONTEND_VERSION="1.8.5"
 ARG LINCEBI_FRONTEND_URL="${REPO_MAVEN_LINCEBI_URL}/com/stratebi/lincebi/lincebi-biserver-frontend/${LINCEBI_FRONTEND_VERSION}/lincebi-biserver-frontend-${LINCEBI_FRONTEND_VERSION}.tgz"
-ARG LINCEBI_FRONTEND_CHECKSUM="a008a216dfdf4c40a111950f6a3ddd18a6c7222bdaa405f99a32a35b44b7b5cf"
+ARG LINCEBI_FRONTEND_CHECKSUM="494088c87a8e27eb7d0429f57ba117c0099155b50902c2a94feb366bbb9b4893"
 RUN curl -Lo "${BISERVER_PRIV_INITD:?}"/10_lincebi-biserver-frontend.tgz "${LINCEBI_FRONTEND_URL:?}" \
 	&& printf '%s  %s' "${LINCEBI_FRONTEND_CHECKSUM:?}" "${BISERVER_PRIV_INITD:?}"/10_lincebi-biserver-frontend.tgz | sha256sum -c \
 	&& chmod 0664 "${BISERVER_PRIV_INITD:?}"/10_lincebi-biserver-frontend.tgz
 
 # Add file-metadata layer
-ARG FILE_METADATA_VERSION="2.9.3"
+ARG FILE_METADATA_VERSION="2.9.4"
 ARG FILE_METADATA_URL="${REPO_MAVEN_LINCEBI_URL}/com/stratebi/lincebi/file-metadata/${FILE_METADATA_VERSION}/file-metadata-${FILE_METADATA_VERSION}.zip"
-ARG FILE_METADATA_CHECKSUM="75a57ea50005ab6ab8716b3f8df86ae274db614c3bd8bb4d4211119b97d583d4"
+ARG FILE_METADATA_CHECKSUM="955d0e2e2e7eab619883321321dbbe042d28e5f664816d43274b7ca47e043193"
 RUN curl -Lo "${BISERVER_PRIV_INITD:?}"/20_file-metadata.zip "${FILE_METADATA_URL:?}" \
 	&& printf '%s  %s' "${FILE_METADATA_CHECKSUM:?}" "${BISERVER_PRIV_INITD:?}"/20_file-metadata.zip | sha256sum -c \
 	&& chmod 0664 "${BISERVER_PRIV_INITD:?}"/20_file-metadata.zip
 
 # Add global-user-settings layer
-ARG GLOBAL_USER_SETTINGS_VERSION="1.4.1"
+ARG GLOBAL_USER_SETTINGS_VERSION="1.4.2"
 ARG GLOBAL_USER_SETTINGS_URL="${REPO_MAVEN_LINCEBI_URL}/com/stratebi/lincebi/global-user-settings/${GLOBAL_USER_SETTINGS_VERSION}/global-user-settings-${GLOBAL_USER_SETTINGS_VERSION}.zip"
-ARG GLOBAL_USER_SETTINGS_CHECKSUM="5c327f1e7da6fbead8812d509b337fdefd190071c56e1e27aa2271bcf5a61012"
+ARG GLOBAL_USER_SETTINGS_CHECKSUM="4a5e4073f9df79b939e6d5060f11e881467d096055598b6143476d49ef67818c"
 RUN curl -Lo "${BISERVER_PRIV_INITD:?}"/20_global-user-settings.zip "${GLOBAL_USER_SETTINGS_URL:?}" \
 	&& printf '%s  %s' "${GLOBAL_USER_SETTINGS_CHECKSUM:?}" "${BISERVER_PRIV_INITD:?}"/20_global-user-settings.zip | sha256sum -c \
 	&& chmod 0664 "${BISERVER_PRIV_INITD:?}"/20_global-user-settings.zip
 
 # Add STSearch layer
-ARG STSEARCH_VERSION="1.6.3"
+ARG STSEARCH_VERSION="1.6.4"
 ARG STSEARCH_URL="${REPO_MAVEN_LINCEBI_URL}/com/stratebi/lincebi/stsearch/${STSEARCH_VERSION}/stsearch-${STSEARCH_VERSION}.zip"
-ARG STSEARCH_CHECKSUM="32c51982f682a4d6c09f99d7ee81d00d391bd459f9de8db2df24b0afb278d623"
+ARG STSEARCH_CHECKSUM="51e8e45aa3dc18e1359485182971d0fff75e1034069e3f8892c290fadc1ea857"
 RUN curl -Lo "${BISERVER_PRIV_INITD:?}"/20_stsearch.zip "${STSEARCH_URL:?}" \
 	&& printf '%s  %s' "${STSEARCH_CHECKSUM:?}" "${BISERVER_PRIV_INITD:?}"/20_stsearch.zip | sha256sum -c \
 	&& chmod 0664 "${BISERVER_PRIV_INITD:?}"/20_stsearch.zip
