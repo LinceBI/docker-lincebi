@@ -3,37 +3,32 @@ FROM repo.stratebi.com/lincebi/biserver:8.3.0.19-1132
 ARG REPO_RAW_LINCEBI_URL="https://repo.stratebi.com/repository/lincebi-raw"
 ARG REPO_MAVEN_LINCEBI_URL="https://repo.stratebi.com/repository/lincebi-mvn"
 
-# Add LinceBI frontend layer
-ARG LINCEBI_FRONTEND_VERSION="1.8.5"
-ARG LINCEBI_FRONTEND_URL="${REPO_MAVEN_LINCEBI_URL}/com/stratebi/lincebi/lincebi-biserver-frontend/${LINCEBI_FRONTEND_VERSION}/lincebi-biserver-frontend-${LINCEBI_FRONTEND_VERSION}.tgz"
-ARG LINCEBI_FRONTEND_CHECKSUM="494088c87a8e27eb7d0429f57ba117c0099155b50902c2a94feb366bbb9b4893"
-RUN curl -Lo "${BISERVER_PRIV_INITD:?}"/10_lincebi-biserver-frontend.tgz "${LINCEBI_FRONTEND_URL:?}" \
-	&& printf '%s  %s' "${LINCEBI_FRONTEND_CHECKSUM:?}" "${BISERVER_PRIV_INITD:?}"/10_lincebi-biserver-frontend.tgz | sha256sum -c \
-	&& chmod 0664 "${BISERVER_PRIV_INITD:?}"/10_lincebi-biserver-frontend.tgz
-
-# Add file-metadata layer
-ARG FILE_METADATA_VERSION="2.9.4"
-ARG FILE_METADATA_URL="${REPO_MAVEN_LINCEBI_URL}/com/stratebi/lincebi/file-metadata/${FILE_METADATA_VERSION}/file-metadata-${FILE_METADATA_VERSION}.zip"
-ARG FILE_METADATA_CHECKSUM="955d0e2e2e7eab619883321321dbbe042d28e5f664816d43274b7ca47e043193"
-RUN curl -Lo "${BISERVER_PRIV_INITD:?}"/20_file-metadata.zip "${FILE_METADATA_URL:?}" \
-	&& printf '%s  %s' "${FILE_METADATA_CHECKSUM:?}" "${BISERVER_PRIV_INITD:?}"/20_file-metadata.zip | sha256sum -c \
-	&& chmod 0664 "${BISERVER_PRIV_INITD:?}"/20_file-metadata.zip
-
-# Add global-user-settings layer
-ARG GLOBAL_USER_SETTINGS_VERSION="1.4.2"
-ARG GLOBAL_USER_SETTINGS_URL="${REPO_MAVEN_LINCEBI_URL}/com/stratebi/lincebi/global-user-settings/${GLOBAL_USER_SETTINGS_VERSION}/global-user-settings-${GLOBAL_USER_SETTINGS_VERSION}.zip"
-ARG GLOBAL_USER_SETTINGS_CHECKSUM="4a5e4073f9df79b939e6d5060f11e881467d096055598b6143476d49ef67818c"
-RUN curl -Lo "${BISERVER_PRIV_INITD:?}"/20_global-user-settings.zip "${GLOBAL_USER_SETTINGS_URL:?}" \
-	&& printf '%s  %s' "${GLOBAL_USER_SETTINGS_CHECKSUM:?}" "${BISERVER_PRIV_INITD:?}"/20_global-user-settings.zip | sha256sum -c \
-	&& chmod 0664 "${BISERVER_PRIV_INITD:?}"/20_global-user-settings.zip
+# Add LinceBI layer
+ARG LINCEBI_VERSION="2.0.0"
+ARG LINCEBI_URL="${REPO_MAVEN_LINCEBI_URL}/com/stratebi/lincebi/lincebi/${LINCEBI_VERSION}/lincebi-${LINCEBI_VERSION}.zip"
+ARG LINCEBI_CHECKSUM="e48ea8023ececc018f7409a27c2d9aa6e4f023b7d2e257f52858721c8fc7c8ec"
+RUN curl -Lo "${BISERVER_PRIV_INITD:?}"/10_lincebi.zip "${LINCEBI_URL:?}" \
+	&& printf '%s  %s' "${LINCEBI_CHECKSUM:?}" "${BISERVER_PRIV_INITD:?}"/10_lincebi.zip | sha256sum -c \
+	&& chmod 0664 "${BISERVER_PRIV_INITD:?}"/10_lincebi.zip
 
 # Add STSearch layer
-ARG STSEARCH_VERSION="1.6.4"
+ARG STSEARCH_VERSION="1.6.5"
 ARG STSEARCH_URL="${REPO_MAVEN_LINCEBI_URL}/com/stratebi/lincebi/stsearch/${STSEARCH_VERSION}/stsearch-${STSEARCH_VERSION}.zip"
-ARG STSEARCH_CHECKSUM="51e8e45aa3dc18e1359485182971d0fff75e1034069e3f8892c290fadc1ea857"
+ARG STSEARCH_CHECKSUM="b93d1c26beb7ba7b6559cfd984c2fd0d0574281a7ffa957fe135bf25ac574f15"
 RUN curl -Lo "${BISERVER_PRIV_INITD:?}"/20_stsearch.zip "${STSEARCH_URL:?}" \
 	&& printf '%s  %s' "${STSEARCH_CHECKSUM:?}" "${BISERVER_PRIV_INITD:?}"/20_stsearch.zip | sha256sum -c \
 	&& chmod 0664 "${BISERVER_PRIV_INITD:?}"/20_stsearch.zip
+
+# Add Dynamic Schema Processor layer
+ARG DSP_VERSION="1.2.0"
+ARG DSP_URL="${REPO_MAVEN_LINCEBI_URL}/com/stratebi/lincebi/dynamic-schema-processor/${DSP_VERSION}/dynamic-schema-processor-${DSP_VERSION}.jar"
+ARG DSP_CHECKSUM="2793520752b2d8287ef9a1c04af3f13f139e1c9100be84915b0bed2e5150a562"
+RUN mkdir -p "${BISERVER_PRIV_INITD:?}"/30_dsp/tomcat/webapps/"${WEBAPP_PENTAHO_DIRNAME}"/WEB-INF/lib/ \
+	&& cd "${BISERVER_PRIV_INITD:?}"/30_dsp/tomcat/webapps/"${WEBAPP_PENTAHO_DIRNAME}"/WEB-INF/lib/ \
+	&& curl -LO "${DSP_URL:?}" \
+	&& printf '%s  %s' "${DSP_CHECKSUM:?}" ./dynamic-schema-processor-*.jar | sha256sum -c \
+	&& find "${BISERVER_PRIV_INITD:?}"/30_dsp/ -type d -not -perm 0775 -exec chmod -c 0775 '{}' '+' \
+	&& find "${BISERVER_PRIV_INITD:?}"/30_dsp/ -type f -not -perm 0664 -exec chmod -c 0664 '{}' '+'
 
 # Add spanish language pack layer
 ARG LANGUAGEPACK_ES_VERSION="9.1-20.10.13"
