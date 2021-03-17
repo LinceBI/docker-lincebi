@@ -20,9 +20,9 @@ RUN curl -Lo "${BISERVER_PRIV_INITD:?}"/20_stsearch.zip "${STSEARCH_URL:?}" \
 	&& chmod 0664 "${BISERVER_PRIV_INITD:?}"/20_stsearch.zip
 
 # Add Dynamic Schema Processor layer
-ARG DSP_VERSION="1.2.0"
+ARG DSP_VERSION="1.2.1"
 ARG DSP_URL="${REPO_MAVEN_LINCEBI_URL}/com/stratebi/lincebi/dynamic-schema-processor/${DSP_VERSION}/dynamic-schema-processor-${DSP_VERSION}.jar"
-ARG DSP_CHECKSUM="2793520752b2d8287ef9a1c04af3f13f139e1c9100be84915b0bed2e5150a562"
+ARG DSP_CHECKSUM="350a2171a0363be69275f9c839a6605902f6f099e073f8b4d363a752629165b2"
 RUN mkdir -p "${BISERVER_PRIV_INITD:?}"/30_dsp/tomcat/webapps/"${WEBAPP_PENTAHO_DIRNAME}"/WEB-INF/lib/ \
 	&& cd "${BISERVER_PRIV_INITD:?}"/30_dsp/tomcat/webapps/"${WEBAPP_PENTAHO_DIRNAME}"/WEB-INF/lib/ \
 	&& curl -LO "${DSP_URL:?}" \
