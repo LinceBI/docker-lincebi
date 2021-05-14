@@ -13,7 +13,7 @@ for langpack_dir in "${BISERVER_HOME:?}"/"${SOLUTIONS_DIRNAME:?}"/system/languag
 		[ -d "${webapps_dir:?}" ] || continue
 
 		# Rename Pentaho webapp directory if target directory does not exist
-		if [ "${WEBAPP_PENTAHO_DIRNAME:?}" != 'pentaho' ] && [ -e "${webapps_dir:?}"/pentaho/ ]; then
+		if [ -e "${webapps_dir:?}"/pentaho/ ] && [ ! -e "${webapps_dir:?}"/"${WEBAPP_PENTAHO_DIRNAME:?}"/ ]; then
 			mv "${webapps_dir:?}"/pentaho/ "${webapps_dir:?}"/"${WEBAPP_PENTAHO_DIRNAME:?}"/
 		fi
 	done
