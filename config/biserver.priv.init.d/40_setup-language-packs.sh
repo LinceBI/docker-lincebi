@@ -6,21 +6,25 @@ export LC_ALL=C
 # shellcheck disable=SC1091
 . /usr/share/biserver/bin/set-utils.sh
 
-for dir in "${BISERVER_HOME:?}"/"${SOLUTIONS_DIRNAME:?}"/system/languagePack_*/; do
-	[ -d "${dir:?}" ] || continue
+for langpack_dir in "${BISERVER_HOME:?}"/"${SOLUTIONS_DIRNAME:?}"/system/languagePack_*/; do
+	[ -d "${langpack_dir:?}" ] || continue
 
-	if [ "${WEBAPP_PENTAHO_DIRNAME:?}" != 'pentaho' ]; then
-		# Move webapp directory
-		data_webapps_dir=$(printf -- '%s' "${dir:?}"/data/*/tomcat/webapps/)
-		mv "${data_webapps_dir:?}"/pentaho/ "${data_webapps_dir:?}"/"${WEBAPP_PENTAHO_DIRNAME:?}"/
+	for webapps_dir in "${langpack_dir:?}"/data/*/tomcat/webapps/; do
+		[ -d "${webapps_dir:?}" ] || continue
 
-		# Replace some hardcoded values
-		sed -ri 's|(<value>(tomcat/webapps/)?)pentaho(</value>)|\1'"${WEBAPP_PENTAHO_DIRNAME:?}"'\3|g' "${dir:?}"/endpoints/kettle/admin/installpack.kjb
-	fi
+		# Rename Pentaho webapp directory if target directory does not exist
+		if [ "${WEBAPP_PENTAHO_DIRNAME:?}" != 'pentaho' ] && [ -e "${webapps_dir:?}"/pentaho/ ]; then
+			mv "${webapps_dir:?}"/pentaho/ "${webapps_dir:?}"/"${WEBAPP_PENTAHO_DIRNAME:?}"/
+		fi
+	done
+
+	# Replace some hardcoded values
+	sed -ri 's|(<value>(tomcat/webapps/)?)pentaho(</value>)|\1'"${WEBAPP_PENTAHO_DIRNAME:?}"'\3|g' \
+		"${langpack_dir:?}"/endpoints/kettle/admin/installpack.kjb
 
 	# Execute ETL
 	/usr/share/biserver/bin/kitchen.sh \
 		-level=Error \
-		-file="${dir:?}"/endpoints/kettle/admin/installpack.kjb \
+		-file="${langpack_dir:?}"/endpoints/kettle/admin/installpack.kjb \
 		-param=cpk.webapp.dir="${CATALINA_BASE:?}"/webapps/"${WEBAPP_PENTAHO_DIRNAME:?}"
 done
