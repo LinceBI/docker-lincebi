@@ -4,17 +4,17 @@ ARG REPO_RAW_LINCEBI_URL="https://repo.stratebi.com/repository/lincebi-raw"
 ARG REPO_MAVEN_LINCEBI_URL="https://repo.stratebi.com/repository/lincebi-mvn"
 
 # Add LinceBI layer
-ARG LINCEBI_VERSION="2.3.0"
+ARG LINCEBI_VERSION="2.3.1"
 ARG LINCEBI_URL="${REPO_MAVEN_LINCEBI_URL}/com/stratebi/lincebi/lincebi/${LINCEBI_VERSION}/lincebi-${LINCEBI_VERSION}.zip"
-ARG LINCEBI_CHECKSUM="7c39294cf7e5ffdb41d3362212a9239a7fc859ce42f058e47f904a5665d5b196"
+ARG LINCEBI_CHECKSUM="8f62b351570b779b700c9f77d742d85e2b3a76c246d5e9bf17c7eabf7abb0527"
 RUN curl -Lo "${BISERVER_PRIV_INITD:?}"/10_lincebi.zip "${LINCEBI_URL:?}" \
 	&& printf '%s  %s' "${LINCEBI_CHECKSUM:?}" "${BISERVER_PRIV_INITD:?}"/10_lincebi.zip | sha256sum -c \
 	&& chmod 0664 "${BISERVER_PRIV_INITD:?}"/10_lincebi.zip
 
 # Add STSearch layer
-ARG STSEARCH_VERSION="1.7.3"
+ARG STSEARCH_VERSION="1.7.4"
 ARG STSEARCH_URL="${REPO_MAVEN_LINCEBI_URL}/com/stratebi/lincebi/stsearch/${STSEARCH_VERSION}/stsearch-${STSEARCH_VERSION}.zip"
-ARG STSEARCH_CHECKSUM="76c0a6f8888222cda8e34bcca3d800e058456006515a89effd87d5c4db15eb6d"
+ARG STSEARCH_CHECKSUM="f1d0266d2524a22995dba9c171ead02e2de25ddebb4edddc17ff4ba32f9d0811"
 RUN curl -Lo "${BISERVER_PRIV_INITD:?}"/20_stsearch.zip "${STSEARCH_URL:?}" \
 	&& printf '%s  %s' "${STSEARCH_CHECKSUM:?}" "${BISERVER_PRIV_INITD:?}"/20_stsearch.zip | sha256sum -c \
 	&& chmod 0664 "${BISERVER_PRIV_INITD:?}"/20_stsearch.zip
@@ -31,25 +31,25 @@ RUN mkdir -p "${BISERVER_PRIV_INITD:?}"/30_dsp/tomcat/webapps/"${WEBAPP_PENTAHO_
 	&& find "${BISERVER_PRIV_INITD:?}"/30_dsp/ -type f -not -perm 0664 -exec chmod -c 0664 '{}' '+'
 
 # Add spanish language pack layer
-ARG LANGUAGEPACK_ES_VERSION="9.1-20.10.13"
+ARG LANGUAGEPACK_ES_VERSION="9.2-21.09.13"
 ARG LANGUAGEPACK_ES_URL="${REPO_RAW_LINCEBI_URL}/pentaho-language-packs/languagePack_es-${LANGUAGEPACK_ES_VERSION}.zip"
-ARG LANGUAGEPACK_ES_CHECKSUM="1b66fb84c930d06fb8bcdec249c1e7c7e11203c0b0c5056222387cbe2d6c746f"
+ARG LANGUAGEPACK_ES_CHECKSUM="5fce95cf1f979bd04a54d15c28c7bb431c6124c875b0a9599bb55767fd4f1f85"
 RUN curl -Lo "${BISERVER_PRIV_INITD:?}"/30_language-pack-es.zip "${LANGUAGEPACK_ES_URL:?}" \
 	&& printf '%s  %s' "${LANGUAGEPACK_ES_CHECKSUM:?}" "${BISERVER_PRIV_INITD:?}"/30_language-pack-es.zip | sha256sum -c \
 	&& chmod 0664 "${BISERVER_PRIV_INITD:?}"/30_language-pack-es.zip
 
 # Add catalan language pack layer
-ARG LANGUAGEPACK_CA_VERSION="9.1-20.10.13"
+ARG LANGUAGEPACK_CA_VERSION="9.2-21.09.13"
 ARG LANGUAGEPACK_CA_URL="${REPO_RAW_LINCEBI_URL}/pentaho-language-packs/languagePack_ca-${LANGUAGEPACK_CA_VERSION}.zip"
-ARG LANGUAGEPACK_CA_CHECKSUM="55fbcecada8017b6d73897dc5b3255b1f8fb8b6dee134bbd6e4fb7bdd11ac1b9"
+ARG LANGUAGEPACK_CA_CHECKSUM="28cb56ef9326f912477867928993b1c1c97dfb0f1b2eb7510e4de90819675ee6"
 RUN curl -Lo "${BISERVER_PRIV_INITD:?}"/30_language-pack-ca.zip "${LANGUAGEPACK_CA_URL:?}" \
 	&& printf '%s  %s' "${LANGUAGEPACK_CA_CHECKSUM:?}" "${BISERVER_PRIV_INITD:?}"/30_language-pack-ca.zip | sha256sum -c \
 	&& chmod 0664 "${BISERVER_PRIV_INITD:?}"/30_language-pack-ca.zip
 
 # Add portuguese language pack layer
-ARG LANGUAGEPACK_PT_VERSION="9.1-20.10.13"
+ARG LANGUAGEPACK_PT_VERSION="9.2-21.09.13"
 ARG LANGUAGEPACK_PT_URL="${REPO_RAW_LINCEBI_URL}/pentaho-language-packs/languagePack_pt_PT-${LANGUAGEPACK_PT_VERSION}.zip"
-ARG LANGUAGEPACK_PT_CHECKSUM="665487abd57b618493b728e7403ca566ff6f6189ab0b2b911bbe1e04152708aa"
+ARG LANGUAGEPACK_PT_CHECKSUM="1c6aee971868d42586b14129d678d99457bdcf9100ac668483c8aa0711507d21"
 RUN curl -Lo "${BISERVER_PRIV_INITD:?}"/30_language-pack-pt.zip "${LANGUAGEPACK_PT_URL:?}" \
 	&& printf '%s  %s' "${LANGUAGEPACK_PT_CHECKSUM:?}" "${BISERVER_PRIV_INITD:?}"/30_language-pack-pt.zip | sha256sum -c \
 	&& chmod 0664 "${BISERVER_PRIV_INITD:?}"/30_language-pack-pt.zip
