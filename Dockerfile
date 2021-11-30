@@ -1,4 +1,4 @@
-FROM repo.stratebi.com/lincebi/biserver:8.3.0.23-1295
+FROM repo.stratebi.com/lincebi/biserver:8.3.0.25-1402
 
 ARG REPO_RAW_LINCEBI_URL="https://repo.stratebi.com/repository/lincebi-raw"
 ARG REPO_MAVEN_LINCEBI_URL="https://repo.stratebi.com/repository/lincebi-mvn"
