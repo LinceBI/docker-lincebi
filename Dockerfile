@@ -4,25 +4,25 @@ ARG REPO_RAW_LINCEBI_URL="https://repo.stratebi.com/repository/lincebi-raw"
 ARG REPO_MAVEN_LINCEBI_URL="https://repo.stratebi.com/repository/lincebi-mvn"
 
 # Add LinceBI layer
-ARG LINCEBI_VERSION="2.4.1"
+ARG LINCEBI_VERSION="2.5.0"
 ARG LINCEBI_URL="${REPO_MAVEN_LINCEBI_URL}/com/stratebi/lincebi/lincebi/${LINCEBI_VERSION}/lincebi-${LINCEBI_VERSION}.zip"
-ARG LINCEBI_CHECKSUM="cc1be800109f60a7cef8a6d933e5ee7b7f376db9ea004d908e942f4178c86a37"
+ARG LINCEBI_CHECKSUM="ece31efbfbc13f97cc06b794ca750e143792a50f9c0e854664c6d5837bb91dbe"
 RUN curl -Lo "${BISERVER_PRIV_INITD:?}"/10_lincebi.zip "${LINCEBI_URL:?}" \
 	&& printf '%s  %s' "${LINCEBI_CHECKSUM:?}" "${BISERVER_PRIV_INITD:?}"/10_lincebi.zip | sha256sum -c \
 	&& chmod 0664 "${BISERVER_PRIV_INITD:?}"/10_lincebi.zip
 
 # Add STSearch layer
-ARG STSEARCH_VERSION="1.7.6"
+ARG STSEARCH_VERSION="1.8.0"
 ARG STSEARCH_URL="${REPO_MAVEN_LINCEBI_URL}/com/stratebi/lincebi/stsearch/${STSEARCH_VERSION}/stsearch-${STSEARCH_VERSION}.zip"
-ARG STSEARCH_CHECKSUM="2fe41ea7f8cb6f34ee39a577f926052197387c778e647de7599cbc1e67449d30"
+ARG STSEARCH_CHECKSUM="8ee17e719e6aa288b2fc49d66e80affee830ae8990fd1f17586b85a1b81e165f"
 RUN curl -Lo "${BISERVER_PRIV_INITD:?}"/20_stsearch.zip "${STSEARCH_URL:?}" \
 	&& printf '%s  %s' "${STSEARCH_CHECKSUM:?}" "${BISERVER_PRIV_INITD:?}"/20_stsearch.zip | sha256sum -c \
 	&& chmod 0664 "${BISERVER_PRIV_INITD:?}"/20_stsearch.zip
 
 # Add Dynamic Schema Processor layer
-ARG DSP_VERSION="1.2.4"
+ARG DSP_VERSION="1.2.5"
 ARG DSP_URL="${REPO_MAVEN_LINCEBI_URL}/com/stratebi/lincebi/dynamic-schema-processor/${DSP_VERSION}/dynamic-schema-processor-${DSP_VERSION}.jar"
-ARG DSP_CHECKSUM="37de88cdcef784246ed143b7357948c844f23cb3598b52e913f986f578e30d47"
+ARG DSP_CHECKSUM="c06a4616e25389ff9b54d477e1faada46799633760bc2e0caa25b3381d59a565"
 RUN mkdir -p "${BISERVER_PRIV_INITD:?}"/30_dsp/tomcat/webapps/"${WEBAPP_PENTAHO_DIRNAME}"/WEB-INF/lib/ \
 	&& cd "${BISERVER_PRIV_INITD:?}"/30_dsp/tomcat/webapps/"${WEBAPP_PENTAHO_DIRNAME}"/WEB-INF/lib/ \
 	&& curl -LO "${DSP_URL:?}" \
