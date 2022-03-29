@@ -30,14 +30,6 @@ RUN mkdir -p "${BISERVER_PRIV_INITD:?}"/30_dsp/tomcat/webapps/"${WEBAPP_PENTAHO_
 	&& find "${BISERVER_PRIV_INITD:?}"/30_dsp/ -type d -not -perm 0775 -exec chmod -c 0775 '{}' '+' \
 	&& find "${BISERVER_PRIV_INITD:?}"/30_dsp/ -type f -not -perm 0664 -exec chmod -c 0664 '{}' '+'
 
-# Add spanish language pack layer
-ARG LANGUAGEPACK_ES_VERSION="9.2-21.09.13"
-ARG LANGUAGEPACK_ES_URL="${REPO_RAW_LINCEBI_URL}/pentaho-language-packs/languagePack_es-${LANGUAGEPACK_ES_VERSION}.zip"
-ARG LANGUAGEPACK_ES_CHECKSUM="5fce95cf1f979bd04a54d15c28c7bb431c6124c875b0a9599bb55767fd4f1f85"
-RUN curl -Lo "${BISERVER_PRIV_INITD:?}"/30_language-pack-es.zip "${LANGUAGEPACK_ES_URL:?}" \
-	&& printf '%s  %s' "${LANGUAGEPACK_ES_CHECKSUM:?}" "${BISERVER_PRIV_INITD:?}"/30_language-pack-es.zip | sha256sum -c \
-	&& chmod 0664 "${BISERVER_PRIV_INITD:?}"/30_language-pack-es.zip
-
 # Add catalan language pack layer
 ARG LANGUAGEPACK_CA_VERSION="9.2-21.09.13"
 ARG LANGUAGEPACK_CA_URL="${REPO_RAW_LINCEBI_URL}/pentaho-language-packs/languagePack_ca-${LANGUAGEPACK_CA_VERSION}.zip"
@@ -46,6 +38,14 @@ RUN curl -Lo "${BISERVER_PRIV_INITD:?}"/30_language-pack-ca.zip "${LANGUAGEPACK_
 	&& printf '%s  %s' "${LANGUAGEPACK_CA_CHECKSUM:?}" "${BISERVER_PRIV_INITD:?}"/30_language-pack-ca.zip | sha256sum -c \
 	&& chmod 0664 "${BISERVER_PRIV_INITD:?}"/30_language-pack-ca.zip
 
+# Add korean language pack layer
+ARG LANGUAGEPACK_KO_VERSION="9.2-21.09.13"
+ARG LANGUAGEPACK_KO_URL="${REPO_RAW_LINCEBI_URL}/pentaho-language-packs/languagePack_ko-${LANGUAGEPACK_KO_VERSION}.zip"
+ARG LANGUAGEPACK_KO_CHECKSUM="61d1e532a6d288d224b214bfb2f24de0d922756f1a038e9d9160386d0cc37184"
+RUN curl -Lo "${BISERVER_PRIV_INITD:?}"/30_language-pack-ko.zip "${LANGUAGEPACK_KO_URL:?}" \
+	&& printf '%s  %s' "${LANGUAGEPACK_KO_CHECKSUM:?}" "${BISERVER_PRIV_INITD:?}"/30_language-pack-ko.zip | sha256sum -c \
+	&& chmod 0664 "${BISERVER_PRIV_INITD:?}"/30_language-pack-ko.zip
+
 # Add portuguese language pack layer
 ARG LANGUAGEPACK_PT_VERSION="9.2-21.09.13"
 ARG LANGUAGEPACK_PT_URL="${REPO_RAW_LINCEBI_URL}/pentaho-language-packs/languagePack_pt_PT-${LANGUAGEPACK_PT_VERSION}.zip"
@@ -53,6 +53,14 @@ ARG LANGUAGEPACK_PT_CHECKSUM="1c6aee971868d42586b14129d678d99457bdcf9100ac668483
 RUN curl -Lo "${BISERVER_PRIV_INITD:?}"/30_language-pack-pt.zip "${LANGUAGEPACK_PT_URL:?}" \
 	&& printf '%s  %s' "${LANGUAGEPACK_PT_CHECKSUM:?}" "${BISERVER_PRIV_INITD:?}"/30_language-pack-pt.zip | sha256sum -c \
 	&& chmod 0664 "${BISERVER_PRIV_INITD:?}"/30_language-pack-pt.zip
+
+# Add spanish language pack layer
+ARG LANGUAGEPACK_ES_VERSION="9.2-21.09.13"
+ARG LANGUAGEPACK_ES_URL="${REPO_RAW_LINCEBI_URL}/pentaho-language-packs/languagePack_es-${LANGUAGEPACK_ES_VERSION}.zip"
+ARG LANGUAGEPACK_ES_CHECKSUM="5fce95cf1f979bd04a54d15c28c7bb431c6124c875b0a9599bb55767fd4f1f85"
+RUN curl -Lo "${BISERVER_PRIV_INITD:?}"/30_language-pack-es.zip "${LANGUAGEPACK_ES_URL:?}" \
+	&& printf '%s  %s' "${LANGUAGEPACK_ES_CHECKSUM:?}" "${BISERVER_PRIV_INITD:?}"/30_language-pack-es.zip | sha256sum -c \
+	&& chmod 0664 "${BISERVER_PRIV_INITD:?}"/30_language-pack-es.zip
 
 # Copy Pentaho BI Server config
 COPY --chown=biserver:root ./config/biserver.priv.init.d/ "${BISERVER_PRIV_INITD}"/
