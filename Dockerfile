@@ -12,9 +12,9 @@ RUN curl -Lo "${BISERVER_PRIV_INITD:?}"/10_lincebi.zip "${LINCEBI_URL:?}" \
 	&& chmod 0664 "${BISERVER_PRIV_INITD:?}"/10_lincebi.zip
 
 # Add STSearch layer
-ARG STSEARCH_VERSION="1.8.2"
+ARG STSEARCH_VERSION="1.8.3"
 ARG STSEARCH_URL="${REPO_MAVEN_LINCEBI_URL}/com/stratebi/lincebi/stsearch/${STSEARCH_VERSION}/stsearch-${STSEARCH_VERSION}.zip"
-ARG STSEARCH_CHECKSUM="ca2964bf57a664eaa4a68134fa7295e4a15da71205eef982e6b49f9c6d8ead5a"
+ARG STSEARCH_CHECKSUM="ed0b70d237cfb4f53aab30a63d58125c549a0942ed3787ac97e5f930a6941a4d"
 RUN curl -Lo "${BISERVER_PRIV_INITD:?}"/20_stsearch.zip "${STSEARCH_URL:?}" \
 	&& printf '%s  %s' "${STSEARCH_CHECKSUM:?}" "${BISERVER_PRIV_INITD:?}"/20_stsearch.zip | sha256sum -c \
 	&& chmod 0664 "${BISERVER_PRIV_INITD:?}"/20_stsearch.zip
