@@ -46,13 +46,21 @@ RUN curl -Lo "${BISERVER_PRIV_INITD:?}"/30_language-pack-ko.zip "${LANGUAGEPACK_
 	&& printf '%s  %s' "${LANGUAGEPACK_KO_CHECKSUM:?}" "${BISERVER_PRIV_INITD:?}"/30_language-pack-ko.zip | sha256sum -c \
 	&& chmod 0664 "${BISERVER_PRIV_INITD:?}"/30_language-pack-ko.zip
 
-# Add portuguese language pack layer
-ARG LANGUAGEPACK_PT_VERSION="9.3-22.06.13"
-ARG LANGUAGEPACK_PT_URL="${REPO_RAW_LINCEBI_URL}/pentaho-language-packs/languagePack_pt_PT-${LANGUAGEPACK_PT_VERSION}.zip"
-ARG LANGUAGEPACK_PT_CHECKSUM="7ba32e302dfe69bdf94d14fd0fdf0393ba01deb5284ec1bb338699c540c85e8b"
-RUN curl -Lo "${BISERVER_PRIV_INITD:?}"/30_language-pack-pt.zip "${LANGUAGEPACK_PT_URL:?}" \
-	&& printf '%s  %s' "${LANGUAGEPACK_PT_CHECKSUM:?}" "${BISERVER_PRIV_INITD:?}"/30_language-pack-pt.zip | sha256sum -c \
-	&& chmod 0664 "${BISERVER_PRIV_INITD:?}"/30_language-pack-pt.zip
+# Add portuguese (PT) language pack layer
+ARG LANGUAGEPACK_PT_PT_VERSION="9.3-22.06.13"
+ARG LANGUAGEPACK_PT_PT_URL="${REPO_RAW_LINCEBI_URL}/pentaho-language-packs/languagePack_pt_PT-${LANGUAGEPACK_PT_PT_VERSION}.zip"
+ARG LANGUAGEPACK_PT_PT_CHECKSUM="7ba32e302dfe69bdf94d14fd0fdf0393ba01deb5284ec1bb338699c540c85e8b"
+RUN curl -Lo "${BISERVER_PRIV_INITD:?}"/30_language-pack-pt_PT.zip "${LANGUAGEPACK_PT_PT_URL:?}" \
+	&& printf '%s  %s' "${LANGUAGEPACK_PT_PT_CHECKSUM:?}" "${BISERVER_PRIV_INITD:?}"/30_language-pack-pt_PT.zip | sha256sum -c \
+	&& chmod 0664 "${BISERVER_PRIV_INITD:?}"/30_language-pack-pt_PT.zip
+
+# Add portuguese (BR) language pack layer
+ARG LANGUAGEPACK_PT_BR_VERSION="9.3-22.06.13"
+ARG LANGUAGEPACK_PT_BR_URL="${REPO_RAW_LINCEBI_URL}/pentaho-language-packs/languagePack_pt_BR-${LANGUAGEPACK_PT_BR_VERSION}.zip"
+ARG LANGUAGEPACK_PT_BR_CHECKSUM="a7406a4db7ee3f7950b761f92570f903b37fa945024c82cc2dc2de5889d4946d"
+RUN curl -Lo "${BISERVER_PRIV_INITD:?}"/30_language-pack-pt_BR.zip "${LANGUAGEPACK_PT_BR_URL:?}" \
+	&& printf '%s  %s' "${LANGUAGEPACK_PT_BR_CHECKSUM:?}" "${BISERVER_PRIV_INITD:?}"/30_language-pack-pt_BR.zip | sha256sum -c \
+	&& chmod 0664 "${BISERVER_PRIV_INITD:?}"/30_language-pack-pt_BR.zip
 
 # Add spanish language pack layer
 ARG LANGUAGEPACK_ES_VERSION="9.3-22.06.13"
