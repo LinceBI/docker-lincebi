@@ -4,9 +4,9 @@ ARG REPO_RAW_LINCEBI_URL="https://repo.stratebi.com/repository/lincebi-raw"
 ARG REPO_MAVEN_LINCEBI_URL="https://repo.stratebi.com/repository/lincebi-mvn"
 
 # Add LinceBI layer
-ARG LINCEBI_VERSION="2.10.1"
+ARG LINCEBI_VERSION="2.10.2"
 ARG LINCEBI_URL="${REPO_MAVEN_LINCEBI_URL}/com/stratebi/lincebi/lincebi/${LINCEBI_VERSION}/lincebi-${LINCEBI_VERSION}.zip"
-ARG LINCEBI_CHECKSUM="067938af12d7b3f0ccc51c9b51750d6741e3aef48c04d403dfe0122c73bd4817"
+ARG LINCEBI_CHECKSUM="83a3f60678ac06a77403f3f8ef98190b88b61c9887e7c8e8997535cdabf59f4a"
 RUN curl -Lo "${BISERVER_PRIV_INITD:?}"/10_lincebi.zip "${LINCEBI_URL:?}" \
 	&& printf '%s  %s' "${LINCEBI_CHECKSUM:?}" "${BISERVER_PRIV_INITD:?}"/10_lincebi.zip | sha256sum -c \
 	&& chmod 0664 "${BISERVER_PRIV_INITD:?}"/10_lincebi.zip
