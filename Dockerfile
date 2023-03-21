@@ -4,9 +4,9 @@ ARG REPO_RAW_LINCEBI_URL="https://repo.stratebi.com/repository/lincebi-raw"
 ARG REPO_MAVEN_LINCEBI_URL="https://repo.stratebi.com/repository/lincebi-mvn"
 
 # Add LinceBI layer
-ARG LINCEBI_VERSION="2.10.1"
+ARG LINCEBI_VERSION="2.10.2"
 ARG LINCEBI_URL="${REPO_MAVEN_LINCEBI_URL}/com/stratebi/lincebi/lincebi/${LINCEBI_VERSION}/lincebi-${LINCEBI_VERSION}.zip"
-ARG LINCEBI_CHECKSUM="067938af12d7b3f0ccc51c9b51750d6741e3aef48c04d403dfe0122c73bd4817"
+ARG LINCEBI_CHECKSUM="83a3f60678ac06a77403f3f8ef98190b88b61c9887e7c8e8997535cdabf59f4a"
 RUN curl -Lo "${BISERVER_PRIV_INITD:?}"/10_lincebi.zip "${LINCEBI_URL:?}" \
 	&& printf '%s  %s' "${LINCEBI_CHECKSUM:?}" "${BISERVER_PRIV_INITD:?}"/10_lincebi.zip | sha256sum -c \
 	&& chmod 0664 "${BISERVER_PRIV_INITD:?}"/10_lincebi.zip
@@ -20,9 +20,9 @@ RUN curl -Lo "${BISERVER_PRIV_INITD:?}"/20_stsearch.zip "${STSEARCH_URL:?}" \
 	&& chmod 0664 "${BISERVER_PRIV_INITD:?}"/20_stsearch.zip
 
 # Add Dynamic Schema Processor layer
-ARG DSP_VERSION="1.3.2"
+ARG DSP_VERSION="1.3.3"
 ARG DSP_URL="${REPO_MAVEN_LINCEBI_URL}/com/stratebi/lincebi/dynamic-schema-processor/${DSP_VERSION}/dynamic-schema-processor-${DSP_VERSION}.jar"
-ARG DSP_CHECKSUM="2b88fdf3340437b2a197c37aa873b88add8ae7efde1edbde8cb42b499debc6f1"
+ARG DSP_CHECKSUM="b6a0cca78caed7a78649160b256a9261052ba03dd8cd3238ee87c66d74093ef9"
 RUN mkdir -p "${BISERVER_PRIV_INITD:?}"/30_dsp/tomcat/webapps/"${WEBAPP_PENTAHO_DIRNAME}"/WEB-INF/lib/ \
 	&& cd "${BISERVER_PRIV_INITD:?}"/30_dsp/tomcat/webapps/"${WEBAPP_PENTAHO_DIRNAME}"/WEB-INF/lib/ \
 	&& curl -LO "${DSP_URL:?}" \
