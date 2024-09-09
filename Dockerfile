@@ -24,9 +24,9 @@ RUN <<-EOF
 EOF
 
 # Add Dynamic Schema Processor layer
-ARG DSP_VERSION="1.3.5"
+ARG DSP_VERSION="1.3.6"
 ARG DSP_URL="${REPO_MAVEN_LINCEBI_URL}/com/stratebi/lincebi/dynamic-schema-processor/${DSP_VERSION}/dynamic-schema-processor-${DSP_VERSION}.jar"
-ARG DSP_CHECKSUM="9e15159c16c033687dc867185b33f5334a1741dadef9e0bc84a7e1596175ce87"
+ARG DSP_CHECKSUM="e4b76d2bff03c663e7e674139b3626498bc3e246d04851c9c5c752f917719a3d"
 RUN <<-EOF
 	mkdir -p "${BISERVER_PRIV_INITD:?}"/30_dsp/tomcat/webapps/"${WEBAPP_PENTAHO_DIRNAME}"/WEB-INF/lib/
 	cd "${BISERVER_PRIV_INITD:?}"/30_dsp/tomcat/webapps/"${WEBAPP_PENTAHO_DIRNAME}"/WEB-INF/lib/
