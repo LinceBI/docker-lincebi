@@ -1,5 +1,6 @@
 /config/biserver.init.d/*
-/dist/
-.env
+!/config/biserver.init.d/.gitkeep
 
-!.placeholder
+/dist/
+
+.env
