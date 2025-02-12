@@ -1,12 +1,12 @@
-FROM repo.stratebi.com/lincebi/biserver:9.3.0.9-878-1
+FROM repo.stratebi.com/lincebi/biserver:9.3.0.10-886-1
 
 ARG REPO_RAW_LINCEBI_URL="https://repo.stratebi.com/repository/lincebi-raw"
 ARG REPO_MAVEN_LINCEBI_URL="https://repo.stratebi.com/repository/lincebi-mvn"
 
 # Add LinceBI layer
-ARG LINCEBI_VERSION="2.13.0"
+ARG LINCEBI_VERSION="2.14.1"
 ARG LINCEBI_URL="${REPO_MAVEN_LINCEBI_URL}/com/stratebi/lincebi/lincebi/${LINCEBI_VERSION}/lincebi-${LINCEBI_VERSION}.zip"
-ARG LINCEBI_CHECKSUM="a2b7fdac041d04a4c12c95c7fb4315568b846c49c6151321365bedf426845b0d"
+ARG LINCEBI_CHECKSUM="c99a2c1b7ffe2eebb97d9a3c6ec091f3ee2b651fd3393848213731dae891b193"
 RUN <<-EOF
 	curl -Lo "${BISERVER_PRIV_INITD:?}"/10_lincebi.zip "${LINCEBI_URL:?}"
 	printf '%s  %s' "${LINCEBI_CHECKSUM:?}" "${BISERVER_PRIV_INITD:?}"/10_lincebi.zip | sha256sum -c
@@ -14,9 +14,9 @@ RUN <<-EOF
 EOF
 
 # Add STSearch layer
-ARG STSEARCH_VERSION="1.10.0"
+ARG STSEARCH_VERSION="1.11.0"
 ARG STSEARCH_URL="${REPO_MAVEN_LINCEBI_URL}/com/stratebi/lincebi/stsearch/${STSEARCH_VERSION}/stsearch-${STSEARCH_VERSION}.zip"
-ARG STSEARCH_CHECKSUM="1a24868e15d1a9c841bb65ebbac7adbcb6ad6e14e7fe0c8695b13feee6e2ab30"
+ARG STSEARCH_CHECKSUM="f035e999d75e270d4d305168fc6a94355ac39b6ff5f4371671340e02deb6c6fb"
 RUN <<-EOF
 	curl -Lo "${BISERVER_PRIV_INITD:?}"/20_stsearch.zip "${STSEARCH_URL:?}"
 	printf '%s  %s' "${STSEARCH_CHECKSUM:?}" "${BISERVER_PRIV_INITD:?}"/20_stsearch.zip | sha256sum -c
@@ -24,9 +24,9 @@ RUN <<-EOF
 EOF
 
 # Add Dynamic Schema Processor layer
-ARG DSP_VERSION="1.3.8"
+ARG DSP_VERSION="1.3.9"
 ARG DSP_URL="${REPO_MAVEN_LINCEBI_URL}/com/stratebi/lincebi/dynamic-schema-processor/${DSP_VERSION}/dynamic-schema-processor-${DSP_VERSION}.jar"
-ARG DSP_CHECKSUM="7e5957a25e677f95d8da96447072d549482ed2c8ac9d7fba9d569b3b9f6765fb"
+ARG DSP_CHECKSUM="8ab0cd35a9d691b0100e68f4315dd80ad1b6614d7a49a273c33293bc1e927d5e"
 RUN <<-EOF
 	mkdir -p "${BISERVER_PRIV_INITD:?}"/30_dsp/tomcat/webapps/"${WEBAPP_PENTAHO_DIRNAME}"/WEB-INF/lib/
 	cd "${BISERVER_PRIV_INITD:?}"/30_dsp/tomcat/webapps/"${WEBAPP_PENTAHO_DIRNAME}"/WEB-INF/lib/
