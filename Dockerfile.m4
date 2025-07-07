@@ -1,3 +1,5 @@
+m4_changequote([[, ]])
+
 FROM repo.stratebi.com/lincebi/biserver:9.3.0.10-886-1
 
 ARG REPO_RAW_LINCEBI_URL="https://repo.stratebi.com/repository/lincebi-raw"
